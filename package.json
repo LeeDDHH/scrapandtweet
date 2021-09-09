@@ -3,12 +3,17 @@
   "version": "1.0.0",
   "description": "",
   "workspaces": [
-    "cloud"
+    "functions"
   ],
+  "engines": {
+    "node": "14"
+  },
   "main": "index.js",
   "scripts": {
-    "lint": "npm run lint -w cloud",
-    "build": "npm run build -w cloud"
+    "lint": "npm run lint -w functions",
+    "build": "npm run build -w functions",
+    "serve": "npm run serve -w functions",
+    "deploy": "npm run deploy -w functions"
   },
   "author": "",
   "license": "ISC",
