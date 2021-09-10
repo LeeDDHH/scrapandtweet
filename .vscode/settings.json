@@ -4,5 +4,6 @@
     "source.fixAll": true
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "prettier.semi": true
+  "prettier.semi": true,
+  "eslint.workingDirectories": ["functions"]
 }
