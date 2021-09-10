@@ -25,6 +25,7 @@
     "quotes": ["error", "double"],
     "import/no-unresolved": 0,
     "object-curly-spacing": [2, "always"],
+    "array-bracket-spacing": ["error", "never"],
     "semi": ["error", "always"],
     "semi-spacing": ["error", { "after": true, "before": false }],
     "semi-style": ["error", "last"],
