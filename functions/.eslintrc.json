@@ -32,6 +32,18 @@
     "no-extra-semi": "error",
     "no-unexpected-multiline": "error",
     "no-unreachable": "error",
-    "indent": [2, 2]
+    "indent": [2, 2],
+    "operator-linebreak": [
+      2,
+      "before",
+      {
+        "overrides": {
+          "?": "before",
+          "&&": "after",
+          "=": "after",
+          "+": "after"
+        }
+      }
+    ]
   }
 }
