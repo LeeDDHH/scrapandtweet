@@ -1,24 +1,21 @@
 import { firestore as adminFireStore } from "firebase-admin";
 import dayjs from "dayjs";
-import { loggerLog } from "../util/logger";
+import { hasSpecifiedProperty } from "../util/index";
 import {
-  logStart,
-  logEnd,
-  logAddNewColissRSSItemsIntoCollection,
-  dbCollectionArchive,
   dbCollectionRSS,
+  dbCollectionArchive,
   dbDocV1,
-  dbCollectionColiss,
   dbCollectionScheduleToDelivery,
 } from "../const";
 
-type PrepareColissRSSItemsIntoCollection = {
-  colissRSSCollection: FirebaseFirestore.CollectionReference;
-  colissArchiveCollection: FirebaseFirestore.CollectionReference;
-  colissRef: FormattedColissItem[];
+type PrepareSpecifiedRSSItemsIntoCollection<T> = {
+  RSSCollection: FirebaseFirestore.CollectionReference;
+  archiveCollection: FirebaseFirestore.CollectionReference;
+  archiveRef: T[];
   createdDate: number;
 };
 
+// RSSコレクションを返す
 const _getRSSCollection = (): FirebaseFirestore.CollectionReference => {
   const db = adminFireStore();
   return db
@@ -27,56 +24,74 @@ const _getRSSCollection = (): FirebaseFirestore.CollectionReference => {
     .collection(dbCollectionScheduleToDelivery);
 };
 
-const _getColissRef = async (
-  colissCollection: FirebaseFirestore.CollectionReference
-): Promise<FormattedColissItem[]> => {
-  const result = await colissCollection.get();
-  return result.docs.map((doc) => doc.data() as FormattedColissItem);
-};
-
-const _getColissArchive = (): FirebaseFirestore.CollectionReference => {
+// 指定したアーカイブのコレクションを返す
+const _getSpecifiedArchiveCollection = (
+  collectionName: string
+): FirebaseFirestore.CollectionReference => {
   const db = adminFireStore();
   return db
     .collection(dbCollectionArchive)
     .doc(dbDocV1)
-    .collection(dbCollectionColiss);
+    .collection(collectionName);
 };
 
-const _prepareColissRSSItemsIntoCollection =
-  async (): Promise<PrepareColissRSSItemsIntoCollection> => {
-    const colissRSSCollection = _getRSSCollection();
-    const colissArchiveCollection = _getColissArchive();
-    const colissRef = await _getColissRef(colissArchiveCollection);
-    const createdDate = dayjs().unix();
-    return {
-      colissRSSCollection,
-      colissArchiveCollection,
-      colissRef,
-      createdDate,
-    };
-  };
+// 指定したアーカイブのコレクションの参照を配列として返す
+const _getSpecifiedArchiveRef = async <T>(
+  archiveCollectionName: FirebaseFirestore.CollectionReference
+): Promise<T[]> => {
+  const result = await archiveCollectionName.get();
+  return result.docs.map((doc) => doc.data() as T);
+};
 
-export const addNewColissRSSItemsIntoCollection = async (
-  items: FormattedColissItem[]
-): Promise<void> => {
-  loggerLog(logAddNewColissRSSItemsIntoCollection, logStart);
-
-  const {
-    colissRSSCollection,
-    colissArchiveCollection,
-    colissRef,
+/*
+ * 指定したサイトのコレクションを更新するための準備をする
+ * RSSCollection: RSSコレクション
+ * archiveCollection: 指定したアーカイブのコレクション
+ * archiveRef: 指定したアーカイブのコレクションの参照（配列）
+ * createdDate: 実行時の日付
+ */
+const _prepareSpecifiedRSSItemsIntoCollection = async <T>(
+  collectionName: string
+): Promise<PrepareSpecifiedRSSItemsIntoCollection<T>> => {
+  const RSSCollection = _getRSSCollection();
+  const archiveCollection = _getSpecifiedArchiveCollection(collectionName);
+  const archiveRef = await _getSpecifiedArchiveRef<T>(archiveCollection);
+  const createdDate = dayjs().unix();
+  return {
+    RSSCollection,
+    archiveCollection,
+    archiveRef,
     createdDate,
-  } = await _prepareColissRSSItemsIntoCollection();
+  };
+};
+
+// 指定したサイトのコレクションを更新する
+export const addNewRSSItemsIntoCollection = async <T extends FormattedItem>(
+  items: T[],
+  collectionName: string
+): Promise<void> => {
+  const { RSSCollection, archiveCollection, archiveRef, createdDate } =
+    await _prepareSpecifiedRSSItemsIntoCollection<FormattedColissItem>(
+      collectionName
+    );
 
   await Promise.all(
     items.map(async (item) => {
-      if (colissRef.some((ref) => ref?.link === item.link)) {
+      if (
+        !hasSpecifiedProperty(item, "title") ||
+        !hasSpecifiedProperty(item, "link")
+      ) {
+        return Promise.resolve();
+      }
+      if (archiveRef.some((ref) => ref?.link === item?.link)) {
         return Promise.resolve();
       }
       const newItem = { ...item, createdAt: createdDate };
-      await colissRSSCollection.add(newItem);
-      return await colissArchiveCollection.add(newItem);
+
+      // RSSコレクションに追加
+      await RSSCollection.add(newItem);
+      // 指定したアーカイブのコレクションに追加
+      return await archiveCollection.add(newItem);
     })
   );
-  loggerLog(logAddNewColissRSSItemsIntoCollection, logEnd);
 };

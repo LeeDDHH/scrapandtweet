@@ -32,3 +32,10 @@ declare type FormattedColissItem = {
   categories: string[] | "";
   isoDate: string | "";
 };
+
+declare type MinimumFormattedItem = {
+  title: string | "";
+  link: string | "";
+};
+
+declare type FormattedItem = MinimumFormattedItem | FormattedColissItem;

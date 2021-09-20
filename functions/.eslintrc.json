@@ -41,7 +41,8 @@
           "?": "before",
           "&&": "after",
           "=": "after",
-          "+": "after"
+          "+": "after",
+          "||": "after"
         }
       }
     ]

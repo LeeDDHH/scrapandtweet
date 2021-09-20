@@ -1,5 +1,5 @@
 import { getRSS } from "../lib/getRSS";
-import { addNewColissRSSItemsIntoCollection } from "../firestore/index";
+import { addNewColissRSSItemsIntoCollection } from "../firestore/coliss";
 import { isNullOrUndefined, isEmptyArray, hasSpecifiedProperty } from "../util";
 import { loggerLog } from "../util/logger";
 import {
