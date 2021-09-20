@@ -15,7 +15,7 @@ import {
   colissFeedURL,
 } from "../const";
 
-const formatColissItem = (item: ColissItem): FormattedColissItem | null => {
+const _formatColissItem = (item: ColissItem): FormattedColissItem | null => {
   return {
     title: item.title,
     link: item.link,
@@ -25,19 +25,19 @@ const formatColissItem = (item: ColissItem): FormattedColissItem | null => {
   };
 };
 
-const hasTitleProperty = (item: ColissItem) => {
+const _hasTitleProperty = (item: ColissItem) => {
   return hasSpecifiedProperty(item, propertyTitle) && item.title.length > 0;
 };
 
-const hasLinkProperty = (item: ColissItem) => {
+const _hasLinkProperty = (item: ColissItem) => {
   return hasSpecifiedProperty(item, propertyLink) && item.link.length > 0;
 };
 
-const hasTitleAndLinkProperty = (item: ColissItem) => {
-  return hasTitleProperty(item) && hasLinkProperty(item);
+const _hasTitleAndLinkProperty = (item: ColissItem) => {
+  return _hasTitleProperty(item) && _hasLinkProperty(item);
 };
 
-const colissScrap = async (): Promise<FormattedColissItem[] | null> => {
+const _colissScrap = async (): Promise<FormattedColissItem[] | null> => {
   loggerLog(logColissScrap, logStart);
   const result: ColissRSS = await getRSS(colissFeedURL);
 
@@ -48,7 +48,7 @@ const colissScrap = async (): Promise<FormattedColissItem[] | null> => {
 
   const formattedColissItems = (<ColissItem[]>result.items)
     .map((item) => {
-      return hasTitleAndLinkProperty(item) ? formatColissItem(item) : null;
+      return _hasTitleAndLinkProperty(item) ? _formatColissItem(item) : null;
     })
     .filter(Boolean);
 
@@ -64,7 +64,7 @@ const colissScrap = async (): Promise<FormattedColissItem[] | null> => {
 export const colissScrapAndUpdate = async (): Promise<string> => {
   loggerLog(logColissScrapAndUpdate, logStart);
 
-  const result = await colissScrap();
+  const result = await _colissScrap();
 
   if (isNullOrUndefined(result)) {
     loggerLog(logColissScrapAndUpdate, logNoScrapedItem);

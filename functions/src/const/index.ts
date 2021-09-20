@@ -23,5 +23,6 @@ export const dbCollectionArchive = "archive";
 export const dbCollectionRSS = "rss";
 export const dbDocV1 = "v1";
 export const dbCollectionColiss = "coliss";
+export const dbCollectionScheduleToDelivery = "scheduleToDelivery";
 
 export const colissFeedURL = "https://coliss.com/feed/";
