@@ -13,7 +13,8 @@
     "lint": "npm run lint -w functions",
     "build": "npm run build -w functions",
     "serve": "npm run serve -w functions",
-    "deploy": "npm run deploy -w functions"
+    "deploy": "npm run deploy -w functions",
+    "emulator-config": "npm run emulator-config -w functions"
   },
   "author": "",
   "license": "ISC",
