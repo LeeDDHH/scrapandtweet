@@ -7,7 +7,9 @@ export const logEnd = "end";
 export const logScrapedEmpty = "scraped empty";
 export const logFormattedEmpty = "formatted result empty";
 export const logNoScrapedItem = "no scraped item";
+export const logNoTweetItem = "no tweet item";
 export const logIndexRunScrap = "【index】 " + "【runScrap】 ";
+export const logIndexRunRSSDelivery = "【index】 " + "【runRSSDelivery】 ";
 export const logScrapAndUpdateRSS =
   "【main#index】 " + "【scrapAndUpdateRSS】 ";
 export const logColissScrap = "【scrapContent#index】 " + "【colissScrap】 ";
@@ -26,3 +28,7 @@ export const dbCollectionColiss = "coliss";
 export const dbCollectionScheduleToDelivery = "scheduleToDelivery";
 
 export const colissFeedURL = "https://coliss.com/feed/";
+
+export const twitterAccount = {
+  coliss: "@colisscom",
+};

@@ -1,3 +1,5 @@
+import { twitterAccount } from "../const";
+
 export const isNullOrUndefined = <T>(args: T): boolean => {
   return typeof args === "undefined" || args == null ? true : false;
 };
@@ -8,6 +10,22 @@ export const isEmptyArray = <T>(args: T): boolean => {
     : false;
 };
 
-export const hasSpecifiedProperty = <T>(item: T, identifier: string) => {
+export const hasSpecifiedProperty = <T>(
+  item: T,
+  identifier: string
+): boolean => {
   return Object.prototype.hasOwnProperty.call(item, identifier);
+};
+
+export const makeShortTitle = (title: string, maxLength: number): string => {
+  const retitle =
+    title.length > maxLength ? title.substr(0, maxLength) + "..." : title;
+  return `📝 ${retitle}`;
+};
+
+export const convertTwitterAccount = (sourceFrom: string): string => {
+  const specifiedTwitterAccount = <TwitterAccount>twitterAccount;
+  return specifiedTwitterAccount[sourceFrom]
+    ? `🏡 ${specifiedTwitterAccount[sourceFrom]}`
+    : "";
 };

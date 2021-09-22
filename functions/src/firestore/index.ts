@@ -39,7 +39,10 @@ const _getSpecifiedArchiveCollection = (
 const _getSpecifiedArchiveRef = async <T>(
   archiveCollectionName: FirebaseFirestore.CollectionReference
 ): Promise<T[]> => {
-  const result = await archiveCollectionName.get();
+  const oneWeekBefore = dayjs().add(-7, "day").unix();
+  const result = await archiveCollectionName
+    .where("createdAt", ">=", oneWeekBefore)
+    .get();
   return result.docs.map((doc) => doc.data() as T);
 };
 
@@ -71,9 +74,7 @@ export const addNewRSSItemsIntoCollection = async <T extends FormattedItem>(
   collectionName: string
 ): Promise<void> => {
   const { RSSCollection, archiveCollection, archiveRef, createdDate } =
-    await _prepareSpecifiedRSSItemsIntoCollection<FormattedColissItem>(
-      collectionName
-    );
+    await _prepareSpecifiedRSSItemsIntoCollection<T>(collectionName);
 
   await Promise.all(
     items.map(async (item) => {
@@ -94,4 +95,16 @@ export const addNewRSSItemsIntoCollection = async <T extends FormattedItem>(
       return await archiveCollection.add(newItem);
     })
   );
+};
+
+export const getOneDataFromRSS =
+  async (): Promise<FirebaseFirestore.QuerySnapshot> => {
+    const RSSCollection = _getRSSCollection();
+    return RSSCollection.orderBy("createdAt", "asc").limit(1).get();
+  };
+
+export const removeDataFromRSSCollection = async (
+  data: FirebaseFirestore.QuerySnapshot
+): Promise<void> => {
+  await data.docs[0].ref.delete();
 };

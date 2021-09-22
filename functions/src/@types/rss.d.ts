@@ -28,14 +28,22 @@ declare type Coliss = ColissRSS | null;
 declare type FormattedColissItem = {
   title: string | "";
   link: string | "";
-  guid: string | "";
+  shortLink: string | "";
   categories: string[] | "";
   isoDate: string | "";
+  sourceFrom: "coliss";
 };
 
 declare type MinimumFormattedItem = {
   title: string | "";
   link: string | "";
+  shortLink: string | "";
+  sourceFrom: string;
 };
 
 declare type FormattedItem = MinimumFormattedItem | FormattedColissItem;
+
+declare type TwitterAccount = {
+  [index: string]: string;
+  coliss: string;
+};

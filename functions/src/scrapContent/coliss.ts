@@ -19,9 +19,10 @@ const _formatColissItem = (item: ColissItem): FormattedColissItem | null => {
   return {
     title: item.title,
     link: item.link,
-    guid: item.guid ?? "",
+    shortLink: item.guid ?? "",
     categories: item.categories ?? "",
     isoDate: item.isoDate ?? "",
+    sourceFrom: "coliss",
   };
 };
 
