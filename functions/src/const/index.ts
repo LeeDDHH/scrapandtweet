@@ -15,6 +15,9 @@ export const logScrapAndUpdateRSS =
 export const logColissScrap = "【scrapContent#index】 " + "【colissScrap】 ";
 export const logColissScrapAndUpdate =
   "【scrapContent#index】 " + "【colissScrapAndUpdate】 ";
+export const logScrap = "【scrapContent#index】 " + "【_scrapData】 ";
+export const logSpecifiedMediaScrapAndUpdate =
+  "【scrapContent#index】 " + "【specifiedMediaScrapAndUpdate】 ";
 export const logAddNewColissRSSItemsIntoCollection =
   "【firestore#index】 " + "【addNewColissRSSItemsIntoCollection】 ";
 
@@ -24,11 +27,9 @@ export const propertyLink = "link";
 export const dbCollectionArchive = "archive";
 export const dbCollectionRSS = "rss";
 export const dbDocV1 = "v1";
-export const dbCollectionColiss = "coliss";
 export const dbCollectionScheduleToDelivery = "scheduleToDelivery";
 
-export const colissFeedURL = "https://coliss.com/feed/";
-
-export const twitterAccount = {
-  coliss: "@colisscom",
-};
+export const mediaNameColiss = "coliss";
+export const mediaNamePhotoShopVip = "photoshopvip";
+export const mediaNameUxMilk = "uxmilk";
+export const mediaNameICSMedia = "icsmedia";

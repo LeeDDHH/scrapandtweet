@@ -1,8 +1,10 @@
-declare type ColissItem = {
+declare type RSSItem = {
   creator: string;
   title: string;
   link: string;
   pubDate: string;
+  "content:encoded"?: string;
+  "content:encodedSnippet"?: string;
   "dc:creator": string;
   content: string;
   contentSnippet: string;
@@ -11,27 +13,27 @@ declare type ColissItem = {
   isoDate: string;
 };
 
-declare interface ColissRSS {
-  items: ColissItem[];
-  feedUrl: "https://coliss.com/feed/";
-  paginationLinks: { self: "https://coliss.com/feed/" };
-  title: "コリス";
+declare interface RSS {
+  items: RSSItem[];
+  feedUrl: string;
+  paginationLinks: { self: string };
+  title: string;
   description: string;
   generator: string;
-  link: "https://coliss.com";
+  link: string;
   language: "ja";
   lastBuildDate: string;
 }
 
-declare type Coliss = ColissRSS | null;
+declare type SourceFrom = "coliss" | "photoshopvip" | "uxmilk" | "icsmedia";
 
-declare type FormattedColissItem = {
+declare type FormattedRSSItem = {
   title: string | "";
   link: string | "";
   shortLink: string | "";
   categories: string[] | "";
   isoDate: string | "";
-  sourceFrom: "coliss";
+  sourceFrom: SourceFrom;
 };
 
 declare type MinimumFormattedItem = {
@@ -41,9 +43,11 @@ declare type MinimumFormattedItem = {
   sourceFrom: string;
 };
 
-declare type FormattedItem = MinimumFormattedItem | FormattedColissItem;
+declare type FormattedItem = MinimumFormattedItem | FormattedRSSItem;
 
-declare type TwitterAccount = {
-  [index: string]: string;
-  coliss: string;
+declare type MediaDataObject = {
+  [index: string]: {
+    twitter: string;
+    feedURL: string;
+  };
 };

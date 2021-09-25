@@ -1,4 +1,4 @@
-import { colissScrapAndUpdate } from "../scrapContent/coliss";
+import { specifiedMediaScrapAndUpdate } from "../scrapContent";
 import { getOneDataFromRSS, removeDataFromRSSCollection } from "../firestore";
 import { tweetRSS } from "../lib/twitter";
 import { loggerLog, loggerError } from "../util/logger";
@@ -7,13 +7,20 @@ import {
   logEnd,
   logScrapAndUpdateRSS,
   logNoTweetItem,
+  mediaNameColiss,
+  mediaNamePhotoShopVip,
+  mediaNameUxMilk,
+  mediaNameICSMedia,
 } from "../const";
 
 export const scrapAndUpdateRSS = async (): Promise<string> => {
   loggerLog(logScrapAndUpdateRSS, logStart);
 
   try {
-    await colissScrapAndUpdate();
+    await specifiedMediaScrapAndUpdate(mediaNameColiss);
+    await specifiedMediaScrapAndUpdate(mediaNamePhotoShopVip);
+    await specifiedMediaScrapAndUpdate(mediaNameUxMilk);
+    await specifiedMediaScrapAndUpdate(mediaNameICSMedia);
   } catch (e) {
     loggerError(logScrapAndUpdateRSS, <Error>e);
   }

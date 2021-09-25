@@ -8,10 +8,10 @@ import {
   dbCollectionScheduleToDelivery,
 } from "../const";
 
-type PrepareSpecifiedRSSItemsIntoCollection<T> = {
+type PrepareSpecifiedRSSItemsIntoCollection = {
   RSSCollection: FirebaseFirestore.CollectionReference;
   archiveCollection: FirebaseFirestore.CollectionReference;
-  archiveRef: T[];
+  archiveRef: FormattedItem[];
   createdDate: number;
 };
 
@@ -36,14 +36,14 @@ const _getSpecifiedArchiveCollection = (
 };
 
 // 指定したアーカイブのコレクションの参照を配列として返す
-const _getSpecifiedArchiveRef = async <T>(
+const _getSpecifiedArchiveRef = async (
   archiveCollectionName: FirebaseFirestore.CollectionReference
-): Promise<T[]> => {
+): Promise<FormattedItem[]> => {
   const oneWeekBefore = dayjs().add(-7, "day").unix();
   const result = await archiveCollectionName
     .where("createdAt", ">=", oneWeekBefore)
     .get();
-  return result.docs.map((doc) => doc.data() as T);
+  return result.docs.map((doc) => doc.data() as FormattedItem);
 };
 
 /*
@@ -53,12 +53,12 @@ const _getSpecifiedArchiveRef = async <T>(
  * archiveRef: 指定したアーカイブのコレクションの参照（配列）
  * createdDate: 実行時の日付
  */
-const _prepareSpecifiedRSSItemsIntoCollection = async <T>(
+const _prepareSpecifiedRSSItemsIntoCollection = async (
   collectionName: string
-): Promise<PrepareSpecifiedRSSItemsIntoCollection<T>> => {
+): Promise<PrepareSpecifiedRSSItemsIntoCollection> => {
   const RSSCollection = _getRSSCollection();
   const archiveCollection = _getSpecifiedArchiveCollection(collectionName);
-  const archiveRef = await _getSpecifiedArchiveRef<T>(archiveCollection);
+  const archiveRef = await _getSpecifiedArchiveRef(archiveCollection);
   const createdDate = dayjs().unix();
   return {
     RSSCollection,
@@ -69,12 +69,13 @@ const _prepareSpecifiedRSSItemsIntoCollection = async <T>(
 };
 
 // 指定したサイトのコレクションを更新する
-export const addNewRSSItemsIntoCollection = async <T extends FormattedItem>(
-  items: T[],
+export const addNewRSSItemsIntoCollection = async (
+  items: FormattedItem[],
   collectionName: string
 ): Promise<void> => {
+  if (!items) return Promise.resolve();
   const { RSSCollection, archiveCollection, archiveRef, createdDate } =
-    await _prepareSpecifiedRSSItemsIntoCollection<T>(collectionName);
+    await _prepareSpecifiedRSSItemsIntoCollection(collectionName);
 
   await Promise.all(
     items.map(async (item) => {

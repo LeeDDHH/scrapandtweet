@@ -1,4 +1,4 @@
-import { twitterAccount } from "../const";
+import { mediaData } from "../data/mediaData";
 
 export const isNullOrUndefined = <T>(args: T): boolean => {
   return typeof args === "undefined" || args == null ? true : false;
@@ -24,8 +24,8 @@ export const makeShortTitle = (title: string, maxLength: number): string => {
 };
 
 export const convertTwitterAccount = (sourceFrom: string): string => {
-  const specifiedTwitterAccount = <TwitterAccount>twitterAccount;
-  return specifiedTwitterAccount[sourceFrom]
-    ? `🏡 ${specifiedTwitterAccount[sourceFrom]}`
+  const mediaDataObject = <MediaDataObject>mediaData;
+  return mediaDataObject[sourceFrom].twitter
+    ? `🏡 ${mediaDataObject[sourceFrom].twitter}`
     : "";
 };

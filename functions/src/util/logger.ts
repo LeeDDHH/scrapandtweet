@@ -1,7 +1,7 @@
 import * as functions from "firebase-functions";
 
-export const loggerLog = <T>(functionName: string, logStat: T): void => {
-  functions.logger.log(functionName + logStat);
+export const loggerLog = (...args: string[]): void => {
+  functions.logger.log(args.join(""));
 };
 
 export const loggerError = (functionName: string, e: Error): void => {
