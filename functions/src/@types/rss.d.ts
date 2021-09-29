@@ -25,7 +25,14 @@ declare interface RSS {
   lastBuildDate: string;
 }
 
-declare type SourceFrom = "coliss" | "photoshopvip" | "uxmilk" | "icsmedia";
+declare type SourceFrom =
+  | "coliss"
+  | "photoshopvip"
+  | "uxmilk"
+  | "icsmedia"
+  | "csstricks"
+  | "muuuuuorg"
+  | "webdesigntrends";
 
 declare type FormattedRSSItem = {
   title: string | "";

@@ -11,6 +11,9 @@ import {
   mediaNamePhotoShopVip,
   mediaNameUxMilk,
   mediaNameICSMedia,
+  mediaNameCSSTricks,
+  mediaNameMuuuuuOrg,
+  mediaWebDesignTrends,
 } from "../const";
 
 export const scrapAndUpdateRSS = async (): Promise<string> => {
@@ -21,6 +24,9 @@ export const scrapAndUpdateRSS = async (): Promise<string> => {
     await specifiedMediaScrapAndUpdate(mediaNamePhotoShopVip);
     await specifiedMediaScrapAndUpdate(mediaNameUxMilk);
     await specifiedMediaScrapAndUpdate(mediaNameICSMedia);
+    await specifiedMediaScrapAndUpdate(mediaNameCSSTricks);
+    await specifiedMediaScrapAndUpdate(mediaNameMuuuuuOrg);
+    await specifiedMediaScrapAndUpdate(mediaWebDesignTrends);
   } catch (e) {
     loggerError(logScrapAndUpdateRSS, <Error>e);
   }

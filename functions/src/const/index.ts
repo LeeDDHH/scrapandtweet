@@ -33,3 +33,6 @@ export const mediaNameColiss = "coliss";
 export const mediaNamePhotoShopVip = "photoshopvip";
 export const mediaNameUxMilk = "uxmilk";
 export const mediaNameICSMedia = "icsmedia";
+export const mediaNameCSSTricks = "csstricks";
+export const mediaNameMuuuuuOrg = "muuuuuorg";
+export const mediaWebDesignTrends = "webdesigntrends";
