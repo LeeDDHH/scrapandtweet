@@ -32,7 +32,9 @@ declare type SourceFrom =
   | "icsmedia"
   | "csstricks"
   | "muuuuuorg"
-  | "webdesigntrends";
+  | "webdesigntrends"
+  | "onlinetutoria16"
+  | "kevinpowell";
 
 declare type FormattedRSSItem = {
   title: string | "";

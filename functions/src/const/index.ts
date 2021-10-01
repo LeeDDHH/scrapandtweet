@@ -36,3 +36,5 @@ export const mediaNameICSMedia = "icsmedia";
 export const mediaNameCSSTricks = "csstricks";
 export const mediaNameMuuuuuOrg = "muuuuuorg";
 export const mediaWebDesignTrends = "webdesigntrends";
+export const mediaOnlineTutoria16 = "onlinetutoria16";
+export const mediaKevinPowell = "kevinpowell";
