@@ -16,6 +16,7 @@ import {
   mediaWebDesignTrends,
   mediaOnlineTutoria16,
   mediaKevinPowell,
+  mediaPartsDesign,
 } from "../const";
 
 export const scrapAndUpdateRSS = async (): Promise<string> => {
@@ -31,6 +32,7 @@ export const scrapAndUpdateRSS = async (): Promise<string> => {
     await specifiedMediaScrapAndUpdate(mediaWebDesignTrends);
     await specifiedMediaScrapAndUpdate(mediaOnlineTutoria16);
     await specifiedMediaScrapAndUpdate(mediaKevinPowell);
+    await specifiedMediaScrapAndUpdate(mediaPartsDesign);
   } catch (e) {
     loggerError(logScrapAndUpdateRSS, <Error>e);
   }

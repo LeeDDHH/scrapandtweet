@@ -19,6 +19,7 @@ const feedOnlineTutoria16 =
   "https://www.youtube.com/feeds/videos.xml?channel_id=UCbwXnUipZsLfUckBPsC7Jog";
 const feedKevinPowell =
   "https://www.youtube.com/feeds/videos.xml?channel_id=UCJZv4d5rbIKd4QHMPkcABCw";
+const feedPartsDesign = "https://partsdesign.net/feed";
 
 export const mediaData = {
   coliss: {
@@ -56,5 +57,9 @@ export const mediaData = {
   kevinpowell: {
     twitter: twitterKevinPowell,
     feedURL: feedKevinPowell,
+  },
+  partsdesign: {
+    twitter: "",
+    feedURL: feedPartsDesign,
   },
 };

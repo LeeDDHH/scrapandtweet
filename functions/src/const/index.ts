@@ -38,3 +38,4 @@ export const mediaNameMuuuuuOrg = "muuuuuorg";
 export const mediaWebDesignTrends = "webdesigntrends";
 export const mediaOnlineTutoria16 = "onlinetutoria16";
 export const mediaKevinPowell = "kevinpowell";
+export const mediaPartsDesign = "partsdesign";

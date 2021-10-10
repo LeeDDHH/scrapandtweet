@@ -34,7 +34,8 @@ declare type SourceFrom =
   | "muuuuuorg"
   | "webdesigntrends"
   | "onlinetutoria16"
-  | "kevinpowell";
+  | "kevinpowell"
+  | "partsdesign";
 
 declare type FormattedRSSItem = {
   title: string | "";
