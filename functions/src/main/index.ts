@@ -10,7 +10,7 @@ import {
   mediaNameColiss,
   mediaNamePhotoShopVip,
   mediaNameUxMilk,
-  mediaNameICSMedia,
+  // mediaNameICSMedia,
   mediaNameCSSTricks,
   mediaNameMuuuuuOrg,
   mediaWebDesignTrends,
@@ -26,7 +26,7 @@ export const scrapAndUpdateRSS = async (): Promise<string> => {
     await specifiedMediaScrapAndUpdate(mediaNameColiss);
     await specifiedMediaScrapAndUpdate(mediaNamePhotoShopVip);
     await specifiedMediaScrapAndUpdate(mediaNameUxMilk);
-    await specifiedMediaScrapAndUpdate(mediaNameICSMedia);
+    // await specifiedMediaScrapAndUpdate(mediaNameICSMedia);
     await specifiedMediaScrapAndUpdate(mediaNameCSSTricks);
     await specifiedMediaScrapAndUpdate(mediaNameMuuuuuOrg);
     await specifiedMediaScrapAndUpdate(mediaWebDesignTrends);

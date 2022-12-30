@@ -1,6 +1,6 @@
-import { initializeApp } from "firebase-admin";
+import * as admin from "firebase-admin";
 import * as request from "./request";
 
-initializeApp();
+admin.initializeApp();
 
 export const requestByURL = { ...request };
